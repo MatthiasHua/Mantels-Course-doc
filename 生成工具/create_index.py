@@ -127,7 +127,7 @@ def get_tab(tab_number, tablist):
 			if len(tablist[i].split('-')) != 2:
 				print("请检查tab是否填写正确")
 				quit()
-			returntext += '''<li class="col-md-''' + str(int(12/tab_number)) + '''" style="margin: 0px; text-align: center;">
+			returntext += '''<li class="col-sm-''' + str(int(12/tab_number)) + '''" style="margin: 0px; text-align: center;">
 		<img class="navimg" src="/''' + tablist[i].split('-')[1] + '''" style="width: 50px;"></img>
 		<a class="nava" href="#a''' + str(i + 1) + '''" data-toggle="tab">''' + tablist[i].split('-')[0] + '''</a>
 	</li>'''
@@ -159,14 +159,14 @@ foot = '''
 
 		//移入事件
 		$('li').mouseover(function(){
-			if ($(this).attr("class") == "col-md-4") {
+			if ($(this).attr("class") == "col-sm-4") {
 					change_color($(this), "#555")
 			}
 		})
 
 		//移出事件
 		$('li').mouseout(function(){
-			if ($(this).attr("class") == "col-md-4") {
+			if ($(this).attr("class") == "col-sm-4") {
 				change_color($(this), "#bbb")
 			}
 		})
@@ -204,9 +204,9 @@ foot = '''
 def headsytle(text):
 	return '''
 <div class ="text-align: center;">
-	<div class="col-md-5" style="float: left; height:40px;"><div style="position: relative; top:20px; width:100%; border:1px solid #bbb;"></div></div>
-	<span class="col-md-2" style="font-size: 28px; text-align: center;">''' + text + '''</span>
-	<div class="col-md-5" style="float: left; height:40px;"><div style="position: relative; top:20px; width:100%; border:1px solid #bbb"></div></div>
+	<div class="col-sm-5" style="float: left; height:40px;"><div style="position: relative; top:20px; width:100%; border:1px solid #bbb;"></div></div>
+	<span class="col-sm-2" style="font-size: 28px; text-align: center;">''' + text + '''</span>
+	<div class="col-sm-5" style="float: left; height:40px;"><div style="position: relative; top:20px; width:100%; border:1px solid #bbb"></div></div>
 </div>
 <div style="height: 70px;"></div>
 '''
@@ -237,9 +237,9 @@ def get(name, lines, errortext):
 rule = [('tab:',   '''<div class="tab-pane fade">'''),\
 	    ('endtab', '''</div>'''),\
 	    ('-',      headsytle),\
-	    ('left:', '''<div style="height: auto; width: 100%; display:inline-block;"> <div class="col-md-6">'''),\
+	    ('left:', '''<div style="height: auto; width: 100%; display:inline-block;"> <div class="col-sm-6">'''),\
 	    ('endleft', '''</div>'''),\
-	    ('right:', '''<div class="col-md-6">'''),\
+	    ('right:', '''<div class="col-sm-6">'''),\
 	    ('endright', '''</div></div><br><br>'''),\
 	    ('h:', hstyle),\
 	    ('p:', pstyle),\
