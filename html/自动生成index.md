@@ -1,4 +1,4 @@
-书写index_content.html
+自动生成index
 ==========
 
 [返回文档中心](/index.html) | [关于文档中心](content.html)
