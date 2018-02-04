@@ -18,12 +18,12 @@
 
 向`http://mantels.top/aqi/access_key` `post`一个表单来获取`access_key`
 
-```
+```json
 {
     "number": 123456,
     "token": "DOxgg6zFl4Ux4kN1",
     "verification code": "5b6c4d752d00a12a06021bd4bc068dff3f9805c8",
-    'last time': 7200
+    "last time": 7200
 }
 ```
 
@@ -36,7 +36,7 @@
 |verification code|SHA1校验码|
 |last time|可选 有效时间(单位为秒，默认值为7200)|
 
-注: 校验码为number+token的SHA1值，在Python中校验范例:
+注: 校验码为`number` + `token`的`SHA1`值，在`Python`中校验范例:
 
 ```python
 import hashlib
@@ -49,7 +49,7 @@ def verificate(number, token):
 
 返回数据
 --------
-```
+```json
 {
     "access_key": "vkfrEtoEawQ4qtVi",
     "verification code": "a745c18b930e7f86bdeca932fa704f0629eed2ce",
@@ -63,7 +63,7 @@ def verificate(number, token):
 |access_key|access_key|
 |verification code|SHA1校验码|
 
-注: 校验码为number+access_key的SHA1值，请自行校验。
+注: 校验码为`number` + `access_key`的`SHA1`值，请自行校验。
 
 错误码
 --------

@@ -2,7 +2,7 @@
 # 使用markdown书写文档
 
 
-[返回文档中心](/index.html)
+[返回文档中心](/index.html) | [关于文档中心](content.html)
 
 文档中心采用了Markdown语言作为富文本编辑器。
 借助 Mantels Markdown 用户可以简单的完成文本、图片等多媒体信息和超链接的添加和排版。

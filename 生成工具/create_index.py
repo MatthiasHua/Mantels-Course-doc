@@ -1,8 +1,10 @@
 import os
+import sys
 
 path = os.path.dirname(os.path.realpath(__file__))
 
-head = '''
+def get_head(title, tab_number, tablist):
+	return '''
 <html>
 <head>
 	<meta charset="utf-8">
@@ -99,7 +101,7 @@ head = '''
 </head>
 <body  onload="load()">
 	<div class="container">
-		<h1 style ="text-align:center ">Mantels Courese文档中心</h1>
+		<h1 style ="text-align:center ">''' + title +'''</h1>
 		<hr>
 		<br>
 		<div class ="col-md-6" style="float: none;display: block;margin-left: auto;margin-right: auto; text-align: center;">
@@ -109,19 +111,7 @@ head = '''
     </div>
 		<br><br>
 		<div class="col-md-6" style="float: none;display: block;margin-left: auto;margin-right: auto;">
-			<ul class="nav nav-tabs" id="myTab">
-				<li class="col-md-4" style="margin: 0px; text-align: center;">
-					<img class="navimg" src="/help.png" style="width: 50px;"></img>
-					<a class="nava" href="#a1" data-toggle="tab">帮助文档</a>
-				</li>
-				<li class="col-md-4" style="margin: 0px; text-align: center;">
-					<img class="navimg" src="/develop-doc.png" style="width: 50px;"></img>
-					<a class="nava" href="#a2" data-toggle="tab">开发文档</a>
-				</li>
-				<li class="col-md-4" style="margin: 0px; text-align: center;">
-					<img class="navimg" src="/develop-doc.png" style="width: 50px;"></img>
-					<a class="nava" href="#a3" data-toggle="tab">开放api</a>
-				</li>
+			<ul class="nav nav-tabs" id="myTab">''' + get_tab(tab_number, tablist) + '''
 			</ul>
 		</div>
 	</div>
@@ -129,6 +119,21 @@ head = '''
 	<div class="container">
 		<div id="myTabContent" class="tab-content">
 '''
+
+def get_tab(tab_number, tablist):
+	if tab_number in [2, 3, 4]:
+		returntext = ""
+		for i in range(tab_number):
+			if len(tablist[i].split('-')) != 2:
+				print("请检查tab是否填写正确")
+				quit()
+			returntext += '''<li class="col-md-''' + str(int(12/tab_number)) + '''" style="margin: 0px; text-align: center;">
+		<img class="navimg" src="/''' + tablist[i].split('-')[1] + '''" style="width: 50px;"></img>
+		<a class="nava" href="#a''' + str(i + 1) + '''" data-toggle="tab">''' + tablist[i].split('-')[0] + '''</a>
+	</li>'''
+		return returntext
+	print("tab数量请控制在2-4个")
+	quit()
 
 foot = '''
 		</div>
@@ -222,6 +227,12 @@ def buttonstyle(text):
 	returntext += '''</div><br>'''
 	return returntext
 
+def get(name, lines, errortext):
+	for i in lines:
+		if i.startswith(name):
+			return  i.split(name)[1].split('\n')[0]
+	print(errortext)
+	quit()
 
 rule = [('tab:',   '''<div class="tab-pane fade">'''),\
 	    ('endtab', '''</div>'''),\
@@ -237,14 +248,93 @@ rule = [('tab:',   '''<div class="tab-pane fade">'''),\
 	    ('br:', '''<br>'''),\
 	    ]
 
-with open(path + '\\index_content.html', 'r', encoding='UTF-8') as content:
-	with open(path + '\\index.html', 'w', encoding='UTF-8') as index:
-		index.write(head)
-		for line in content.readlines():
-			for i in rule:
-				if line.startswith(i[0]):
-					if isinstance(i[1],str):
-						index.write(i[1])
-					else:
-						index.write(i[1](line.split(i[0])[1]))
-		index.write(foot)
+def create_index(input = "index_content.html", output = "index.html"):
+	with open(path + '\\' + input, 'r', encoding='UTF-8') as content:
+		with open(path + '\\' + output, 'w', encoding='UTF-8') as index:
+			lines = content.readlines()
+			title = get("t:", lines, "请给定标题,详情见 -h title。")
+			tab_number = int(get("tab-number:", lines, "请给定tab数量,详情见 -h tab-number。"))
+			tablist = []
+			for i in range(tab_number):
+				tablist.append(get( "tab" + str(i + 1) + ":", lines, "请给定tab名称,详情见 -h tab-name。"))
+			index.write(get_head(title, tab_number, tablist))
+			for line in lines:
+				for i in rule:
+					if line.startswith(i[0]):
+						if isinstance(i[1],str):
+							index.write(i[1])
+						else:
+							index.write(i[1](line.split(i[0])[1]))
+			index.write(foot)
+
+def printhelp():
+	print("Usage:")
+	print("  %-20s" % "python create_index.py <command> [options]")
+	print()
+	print("Commands:")
+	print("  %-30s%s" % ("init", "生成一份内容模板"))
+	print("  %-30s%s" % ("create", "根据内容模板生成网页"))
+	print()
+	print("General Options:")
+	print("  %-30s%s" % ("-h", "帮助"))
+	print("  %-30s%s" % ("-i <path>", "输入文件，默认为index_content.html"))
+	print("  %-30s%s" % ("-o <path>", "输出文件，在init模式下默认为index_content.html，在create模式下默认为index.html"))
+	print("  %-30s%s" % ("-t <tab-number>", "tab的数量(2-4)"))
+
+def create_content(output = "index_content.html", tab_number = 3):
+	with open(path + '\\' + output, 'w', encoding='UTF-8') as content:
+		content.write("t:标题名称\n")
+		content.write("tab-number:%s\n" % str(tab_number))
+		for i in range(tab_number):
+			content.write("tab" + str(i + 1) + ":tab名称\n")
+		content.write("\n")
+		for i in range(tab_number):
+			content.write("tab:\n-标题-\nleft:\nendleft\nright:\nendright\nendtab\n\n")
+		content.write("#提示:\n#-标题- tab下的大标题\n#h:标题 每个大标题下的小标题\n#p:文字 无链接文字\n#a:文字-链接 带链接文字\n#b:文字-链接 文字-链接... 带链接按钮，可以输入多组\n")
+
+
+if __name__ == '__main__':
+	argv = sys.argv
+	argv.pop(0)
+	if argv == []:
+		create_index()
+		quit()
+	if argv[0] == '-h':
+		printhelp()
+	if argv[0] == 'init':
+		argv.pop(0)
+		output = "index_content.html"
+		tab_number = 3
+		for i in range(len(argv)):
+			if argv[i] == "-o":
+				if i == len(argv):
+					print("请给出输出文件地址")
+					quit()
+				else:
+					output = argv[i + 1]
+			if argv[i] == "-t":
+				if i == len(argv):
+					print("请给出tab的数量")
+					quit()
+				else:
+					tab_number = int(argv[i + 1])
+		create_content(output, tab_number)
+
+	if argv[0] == 'create':
+		argv.pop(0)
+		input = "index_content.html"
+		output = "index.html"
+		for i in range(len(argv)):
+			if argv[i] == "-i":
+				if i == len(argv) - 1:
+					print("请给出输入文件地址")
+					quit()
+				else:
+					input = argv[i + 1]
+			if argv[i] == "-o":
+				if i == len(argv) - 1:
+					print("请给出输出文件地址")
+					quit()
+				else:
+					output = argv[i + 1]
+		create_index(input, output)

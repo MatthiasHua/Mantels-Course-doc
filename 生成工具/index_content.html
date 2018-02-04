@@ -1,3 +1,9 @@
+t:Mantels Courese文档中心
+tab-number:3
+tab1:帮助文档-help.png
+tab2:开发文档-develop.png
+tab3:开放api-api.png
+
 tab:
 -教师帮助-
 left:
@@ -18,9 +24,9 @@ tab:
 -安装指南-
 left:
 h:运行Mantels
-p:安装Python
-p:建立虚拟环境
-p:安装模块
+a:安装Python-/content.html#!安装Python.md
+a:建立虚拟环境-/content.html#!建立虚拟环境.md
+a:安装模块-/content.html#!安装模块.md
 br
 h:部署于服务器
 p:web服务器
@@ -49,16 +55,16 @@ endright
 
 -文档中心-
 left:
-p:关于文档中心
+a:关于文档中心-/content.html
 br
 h:建立文档中心主页
-p:书写index_content.html
-p:自动生成index
+a:书写index_content.html-/content.html#!书写index_content.html.md
+a:自动生成index-/content.html#!自动生成index.md
 br
 h:建立文档
 h:文档规范
-p:使用markdown书写文档
-p:链接文档
+a:使用markdown书写文档-/content.html#!使用markdown书写文档.md
+a:链接文档-/content.html#!链接文档.md
 endleft
 right:
 h:部署于服务器
@@ -73,15 +79,26 @@ endright
 left:
 p:Flask官方文档
 b:中文-http://docs.jinkan.org/docs/flask/ English-http://flask.pocoo.org/docs/
-p:Flask-SQLAlchemy 官方文档
+p:Flask SQLAlchemy 官方文档
 b:中文-http://www.pythondoc.com/flask-sqlalchemy/index.html English-http://flask-sqlalchemy.pocoo.org/
-p:Flask-Cors
+a:Flask Cors官方文档-https://pypi.python.org/pypi/Flask-Cors/
 endleft
 right:
-p:Jinja2
-p:tablib
-p:requests
+a:Jinja2官方文档-http://jinja.pocoo.org/
+a:tablib官方文档-http://docs.python-tablib.org/en/master/
+p:requests官方文档
+b:中文-http://docs.python-requests.org/zh_CN/latest/ English-http://www.python-requests.org/en/master/
 endright
+
+
+-参考资料-
+left:
+p:部署记录
+a:20180203 阿里云 Ubuntu部署记录-/content.html#!部署记录_2018_2_3.md
+endleft
+right:
+endright
+
 
 endtab
 tab:
@@ -94,8 +111,8 @@ endright
 -用户相关-
 left:
 a:获取access_key-/content.html#!获取access_key.md
-p:学生登陆
-b:二维码登陆-# 人脸识别-#
+p:学生登录
+b:二维码登录-/content.html#!二维码登录.md 人脸识别-#
 endleft
 right:
 p:确认与服务器的连接
@@ -109,3 +126,10 @@ endleft
 right:
 endright
 endtab
+
+#提示:
+#-标题- tab下的大标题
+#h:标题 每个大标题下的小标题
+#p:文字 无链接文字
+#a:文字-链接 带链接文字
+#b:文字-链接 文字-链接... 带链接按钮，可以输入多组
