@@ -195,6 +195,10 @@ foot = '''
 	$("div.tab-pane:eq(1)").attr("id", "a2")
 	$("div.tab-pane:eq(2)").attr("id", "a3")
 
+	if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+		$('.tabhead').css("font-size", "20px")
+		$('.tabheadline').css("top", "15px")
+	}
 
 </script>
 </body>
@@ -204,9 +208,9 @@ foot = '''
 def headsytle(text):
 	return '''
 <div class ="text-align: center;">
-	<div class="col-sm-5" style="float: left; height:40px;"><div style="position: relative; top:20px; width:100%; border:1px solid #bbb;"></div></div>
-	<span class="col-sm-2" style="font-size: 28px; text-align: center;">''' + text + '''</span>
-	<div class="col-sm-5" style="float: left; height:40px;"><div style="position: relative; top:20px; width:100%; border:1px solid #bbb"></div></div>
+	<div class="col-sm-5" style="float: left; height:40px;"><div class="tabheadline" style="position: relative; top:20px; width:100%; border:1px solid #bbb;"></div></div>
+	<span class="col-sm-2 tabhead" style="font-size: 28px; text-align: center;">''' + text + '''</span>
+	<div class="col-sm-5" style="float: left; height:40px;"><div class="tabheadline" style="position: relative; top:20px; width:100%; border:1px solid #bbb"></div></div>
 </div>
 <div style="height: 70px;"></div>
 '''
