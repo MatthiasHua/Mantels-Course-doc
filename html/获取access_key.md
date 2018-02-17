@@ -21,8 +21,9 @@
 ```json
 {
     "number": 123456,
-    "token": "DOxgg6zFl4Ux4kN1",
-    "verification code": "5b6c4d752d00a12a06021bd4bc068dff3f9805c8",
+    "token": "ixhBtdLVuMRShtLC",
+    "device name": "test-device-1",
+    "verification code": "5694098b54a1da9c4f2a1085bda6e0a3306f7dc7",
     "last time": 7200
 }
 ```
@@ -33,16 +34,21 @@
 |------|------|
 |number|账户id(不是用户名)|
 |token|令牌|
+|device name|设备名称|
 |verification code|SHA1校验码|
 |last time|可选 有效时间(单位为秒，默认值为7200)|
 
-注: 校验码为`number` + `token`的`SHA1`值，在`Python`中校验范例:
+注: 设备名称用于区分不同设备，同一型号的设备可以采用型号名称+编号的形式区分。
+
+注: 校验码为`number` + `token` + `device_name`的`SHA1`值，在`Python`中校验范例:
 
 ```python
 import hashlib
 
-def verificate(number, token):
-    return hashlib.sha1(temp.encode("utf8")).hexdigest()
+def verificate(str):
+    return hashlib.sha1(str.encode("utf8")).hexdigest()
+
+verificate(number + token + device_name)
 ```
 
 注: last time为access_key的有效时间,当前最高设置为43,200，即为12小时,建议在自己的服务器中存储access_key的到期时间并且及时更新。
@@ -76,4 +82,4 @@ def verificate(number, token):
 |40005|校验码错误|
 |40006|有效时间错误|
 
-最后由[MatthiasHua](https://github.com/MatthiasHua)编辑于`2018/1/31`
+最后由[MatthiasHua](https://github.com/MatthiasHua)编辑于`2018/2/15`
