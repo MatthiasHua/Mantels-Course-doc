@@ -16,7 +16,7 @@
 获取access_key
 --------
 
-向`http://mantels.top/aqi/access_key` `post`一个表单来获取`access_key`
+向`http://mantels.top/api/access_key` `post`一个表单来获取`access_key`
 
 ```json
 {
